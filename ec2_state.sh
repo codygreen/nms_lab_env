@@ -2,7 +2,7 @@
 
 GetEC2Instances()
 {
-    echo $(aws ec2 describe-instances --filters Name=instance-state-name,Values=running Name=tag:Project,Values=cody-nms --query "Reservations[*].Instances[*].InstanceId" --output text)
+    echo $(aws ec2 describe-instances --filters Name=tag:Project,Values=cody-nms --query "Reservations[*].Instances[*].InstanceId" --output text)
 }
 
 Start()
