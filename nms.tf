@@ -14,5 +14,6 @@ resource "aws_instance" "nms" {
   tags = {
     Name = format("%s-nms", lower(var.owner_name))
     Owner = var.owner_email
+    Project = format("%s-nms", lower(var.owner_name))
   }
 }

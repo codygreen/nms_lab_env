@@ -14,5 +14,6 @@ resource "aws_instance" "dev_portal" {
   tags = {
     Name = format("%s-dev_portal", lower(var.owner_name))
     Owner = var.owner_email
+    Project = format("%s-nms", lower(var.owner_name))
   }
 }
