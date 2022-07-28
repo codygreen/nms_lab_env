@@ -7,7 +7,7 @@ resource "aws_instance" "dev_portal" {
   key_name                    = var.key_name
   iam_instance_profile        = aws_iam_instance_profile.nms_profile.name
 
-  user_data = templatefile("${path.module}/userdata.tpl", {
+  user_data = templatefile("${path.module}/dev_portal_userdata.tpl", {
     tailscale_auth_key = var.tailscale_auth_key
     hostname           = "dev_portal"
     region             = var.region
