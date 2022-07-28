@@ -1,8 +1,21 @@
 # NGINX Management Suite Lab
 
-This repository will build out a 3 server deployment allowing the user to configure the NGINX Management Suite, Developer Portal, and API Gateway instances.
+This repository will build out a 3 server deployment in AWS allowing the user to test the NGINX Management Suite, API Connectivity Manager, Developer Portal, and API Gateway instances.
 
-This deployment leverages Tailscale to connect into the EC2 instances.
+> Note: This deployment leverages [Tailscale](https://tailscale.com/) to connect into the EC2 instances.
+
+![Lab diagram](./NMS_ACM_lab_env.png)
+
+## Deployment
+
+> Note: You will need to save your *nginx-repo.crt* and *nginx-repo.key* in the base folder of this project.
+
+Run the following Terraform commands to deploy the environment:
+
+```bash
+terraform init
+terraform deploy -auto-approve
+```
 
 ## Configure NMS
 
