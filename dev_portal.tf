@@ -10,6 +10,9 @@ resource "aws_instance" "dev_portal" {
   user_data = templatefile("${path.module}/userdata.tpl", {
     tailscale_auth_key = var.tailscale_auth_key
     hostname           = "dev_portal"
+    region             = var.region
+    nginx-repo-crt     = format("%s-nginx-repo-crt", lower(var.owner_name))
+    nginx-repo-key     = format("%s-nginx-repo-key", lower(var.owner_name))
   })
 
   tags = {
