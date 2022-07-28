@@ -10,6 +10,7 @@ apt:
       keyid: 2596A99EAAB33821893C0A79458CA832957F5868
 packages: 
   - tailscale
+  - awscli
 runcmd:
   - [tailscale, up, -authkey, ${tailscale_auth_key}, -hostname, ${hostname}]
   - mkdir /etc/ssl/nginx
