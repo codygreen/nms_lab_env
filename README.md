@@ -14,7 +14,7 @@ Run the following Terraform commands to deploy the environment:
 
 ```bash
 terraform init
-terraform deploy -auto-approve
+terraform apply -auto-approve
 ```
 
 ## Configure NMS
