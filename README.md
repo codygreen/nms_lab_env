@@ -31,7 +31,7 @@ Next, you will need to login to the NMS UI and [add a license](https://docs.ngin
 
 Once the dev_portal server is up and running, you will need to [configure Postgres](https://docs.nginx.com/nginx-management-suite/admin-guides/installation/install-guide/#install-the-developer-portal):
 
-1. configure PostgreSQL host-based authentication file:
+1. Configure PostgreSQL host-based authentication file:
 
     ```bash
     cat << EOF | sudo tee /etc/postgresql/12/main/pg_hba.conf
@@ -61,7 +61,7 @@ Once the dev_portal server is up and running, you will need to [configure Postgr
     sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE devportal TO nginxdm;"
     ```
 
-1. Add NSJ directives in the top-level main context the nginx.conf file
+1. Add NJS directives in the top-level main context the nginx.conf file
 
     ```bash
     load_module modules/ngx_http_js_module.so;
