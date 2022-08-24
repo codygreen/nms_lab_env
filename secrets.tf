@@ -1,9 +1,9 @@
 resource "aws_secretsmanager_secret" "nginx-repo-crt" {
-  name = format("%s-nginx-repo-crt", lower(var.owner_name))
+  name = format("%s-nginx-repo-crt-%s", lower(var.owner_name), random_id.id.hex)
 }
 
 resource "aws_secretsmanager_secret" "nginx-repo-key" {
-  name = format("%s-nginx-repo-key", lower(var.owner_name))
+  name = format("%s-nginx-repo-key-%s", lower(var.owner_name), random_id.id.hex)
 }
 
 resource "aws_secretsmanager_secret_version" "nginx-repo-crt" {
