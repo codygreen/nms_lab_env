@@ -39,3 +39,4 @@ runcmd:
   - systemctl start nms
   - systemctl enable nms-acm
   - systemctl start nginx
+  - hostnamectl set-hostname ${hostname}
