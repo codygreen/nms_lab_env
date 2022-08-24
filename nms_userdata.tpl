@@ -27,9 +27,11 @@ runcmd:
   - apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 8919F6BD2B48D75
   - echo "deb https://packages.clickhouse.com/deb stable main" | sudo tee /etc/apt/sources.list.d/clickhouse.list
   - apt-get update && apt-get install -y nginx-plus
-  - apt-get install -y clickhouse-server clickhouse-client
+  - export CLICKHOUSE_PASSWORD=default && apt-get install -y clickhouse-server clickhouse-client
   - apt-get install -y nms-instance-manage
   - apt-get install -y nms-api-connectivity-manager
+  - echo "clickhouse_password = 'default'" >> /etc/nms/nms.conf
+  - systemctl enable clickhouse-server
   - systemctl enable nms
   - systemctl enable nms-core
   - systemctl enable nms-dpm
