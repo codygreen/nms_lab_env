@@ -23,9 +23,10 @@ runcmd:
   - printf "deb [signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://pkgs.nginx.com/plus/ubuntu `lsb_release -cs` nginx-plus\n" | sudo tee /etc/apt/sources.list.d/nginx-plus.list
   - printf "deb https://pkgs.nginx.com/nms/ubuntu `lsb_release -cs` nginx-plus\n" | sudo tee /etc/apt/sources.list.d/nms.list
   - wget -P /etc/apt/apt.conf.d https://cs.nginx.com/static/files/90pkgs-nginx
+  - echo "deb https://packages.clickhouse.com/deb stable main" | sudo tee /etc/apt/sources.list.d/clickhouse.list
   - apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62
   - apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 8919F6BD2B48D75
-  - echo "deb https://packages.clickhouse.com/deb stable main" | sudo tee /etc/apt/sources.list.d/clickhouse.list
+  - apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 8919F6BD2B48D754
   - apt-get update && apt-get install -y nginx-plus
   - export CLICKHOUSE_PASSWORD=default && apt-get install -y clickhouse-server clickhouse-client
   - apt-get install -y nms-instance-manage
