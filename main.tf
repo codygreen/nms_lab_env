@@ -2,6 +2,13 @@ provider "aws" {
   region = var.region
 }
 
+#
+# Create a random id
+#
+resource "random_id" "id" {
+  byte_length = 2
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
@@ -19,23 +26,23 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_security_group" "egress" {
-  name = format("%s-ubuntu-egress", lower(var.owner_name))
+  name        = format("%s-ubuntu-egress", lower(var.owner_name))
   description = "egress"
-  vpc_id = aws_vpc.vpc.id
+  vpc_id      = aws_vpc.vpc.id
   ingress {
     cidr_blocks = ["10.0.0.0/16"]
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
   }
   egress {
     cidr_blocks = ["0.0.0.0/0"]
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
   }
   tags = {
-    Name = format("%s-ubuntu-egress", lower(var.owner_name))
+    Name  = format("%s-ubuntu-egress", lower(var.owner_name))
     Owner = var.owner_email
   }
 }
