@@ -11,8 +11,8 @@ resource "aws_instance" "nms" {
     tailscale_auth_key = var.tailscale_auth_key
     hostname           = "nms"
     region             = var.region
-    nginx-repo-crt     = format("%s-nginx-repo-crt", lower(var.owner_name))
-    nginx-repo-key     = format("%s-nginx-repo-key", lower(var.owner_name))
+    nginx-repo-crt     = format("%s-nginx-repo-crt-%s", lower(var.owner_name), random_id.id.hex)
+    nginx-repo-key     = format("%s-nginx-repo-key-%s", lower(var.owner_name), random_id.id.hex)
   })
 
   tags = {
