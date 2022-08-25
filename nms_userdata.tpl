@@ -31,7 +31,6 @@ runcmd:
   - DEBIAN_FRONTEND=noninteractive apt-get install -y clickhouse-server clickhouse-client
   - apt-get install -y nms-instance-manage
   - apt-get install -y nms-api-connectivity-manager
-  - echo "clickhouse_password = 'default'" >> /etc/nms/nms.conf
   - systemctl enable clickhouse-server
   - systemctl enable nms
   - systemctl enable nms-core
