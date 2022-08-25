@@ -23,3 +23,4 @@ runcmd:
   - wget -P /etc/apt/apt.conf.d https://cs.nginx.com/static/files/90pkgs-nginx
   - apt-get update && apt-get install -y nginx-plus nginx-plus-module-njs
   - hostnamectl set-hostname ${hostname}
+  - systemctl enable nginx
