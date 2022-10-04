@@ -26,13 +26,15 @@ runcmd:
   - wget -P /etc/apt/apt.conf.d https://cs.nginx.com/static/files/90pkgs-nginx
   - apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62
   - apt-get update && apt-get install -y nginx-plus
-  - apt-get install -y nms-instance-manage
-  - apt-get install -y nms-api-connectivity-manager
+  - apt-get install -y nms-instance-manager
   - systemctl enable nms
   - systemctl enable nms-core
   - systemctl enable nms-dpm
   - systemctl enable nms-ingestion
   - systemctl enable nms-integrations
+  - systemctl start nms
+  - systemctl restart nginx
+  - apt-get install -y nms-api-connectivity-manager
   - systemctl enable nms-acm
   - systemctl start nms
-  - systemctl start nginx
+  - systemctl restart nginx
