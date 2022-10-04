@@ -32,6 +32,7 @@ runcmd:
   - systemctl enable nms-core
   - systemctl enable nms-dpm
   - systemctl enable nms-ingestion
-  - systemctl start nms
+  - systemctl enable nms-integrations
   - systemctl enable nms-acm
+  - systemctl start nms
   - systemctl start nginx
