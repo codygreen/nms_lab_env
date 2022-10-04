@@ -1,4 +1,4 @@
-resource "aws_instance" "nms" {
+resource "aws_instance" "api" {
   ami                         = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.egress.id]
@@ -7,16 +7,14 @@ resource "aws_instance" "nms" {
   key_name                    = var.key_name
   iam_instance_profile        = aws_iam_instance_profile.nms_profile.name
 
-  user_data = templatefile("${path.module}/nms_userdata.tpl", {
+  user_data = templatefile("${path.module}/api_userdata.tpl", {
     tailscale_auth_key = var.tailscale_auth_key
-    hostname           = "nms"
+    hostname           = "api"
     region             = var.region
-    nginx-repo-crt     = aws_secretsmanager_secret.nginx-repo-crt.arn
-    nginx-repo-key     = aws_secretsmanager_secret.nginx-repo-key.arn
   })
 
   tags = {
-    Name    = format("%s-nms", lower(var.owner_name))
+    Name    = format("%s-api", lower(var.owner_name))
     Owner   = var.owner_email
     Project = format("%s-nms", lower(var.owner_name))
   }

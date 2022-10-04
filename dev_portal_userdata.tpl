@@ -26,3 +26,4 @@ runcmd:
   - apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ABF5BD827BD9BF62
   - apt-get update && apt-get install -y nginx-plus nginx-devportal nginx-devportal-ui nginx-plus-module-njs
   - systemctl start nginx
+  - hostnamectl set-hostname ${hostname}
