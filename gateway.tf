@@ -11,8 +11,8 @@ resource "aws_instance" "gateway" {
     tailscale_auth_key = var.tailscale_auth_key
     hostname           = "gateway"
     region             = var.region
-    nginx-repo-crt     = format("%s-nginx-repo-crt", lower(var.owner_name))
-    nginx-repo-key     = format("%s-nginx-repo-key", lower(var.owner_name))
+    nginx-repo-crt     = aws_secretsmanager_secret.nginx-repo-crt.arn
+    nginx-repo-key     = aws_secretsmanager_secret.nginx-repo-key.arn
   })
 
   tags = {
