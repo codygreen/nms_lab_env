@@ -61,7 +61,7 @@ Once the dev_portal server is up and running, you will need to [configure Postgr
     sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE devportal TO nginxdm;"
     ```
 
-1. Add NJS directives in the top-level main context the nginx.conf file
+1. Add NJS directives in the top-level main context the nginx.conf file located at `/etc/nginx/nginx.conf`:
 
     ```bash
     load_module modules/ngx_http_js_module.so;

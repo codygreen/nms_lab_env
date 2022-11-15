@@ -29,14 +29,16 @@ runcmd:
   - apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 8919F6BD2B48D754
   - apt-get update && apt-get install -y nginx-plus
   - DEBIAN_FRONTEND=noninteractive apt-get install -y clickhouse-server clickhouse-client
-  - apt-get install -y nms-instance-manage
-  - apt-get install -y nms-api-connectivity-manager
+  - apt-get install -y nms-instance-manager
   - systemctl enable clickhouse-server
   - systemctl enable nms
   - systemctl enable nms-core
   - systemctl enable nms-dpm
   - systemctl enable nms-ingestion
+  - systemctl enable nms-integrations
   - systemctl start nms
+  - systemctl restart nginx
+  - apt-get install -y nms-api-connectivity-manager
   - systemctl enable nms-acm
-  - systemctl start nginx
+  - systemctl restart nginx
   - hostnamectl set-hostname ${hostname}
