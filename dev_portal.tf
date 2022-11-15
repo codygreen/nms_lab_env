@@ -11,8 +11,8 @@ resource "aws_instance" "dev_portal" {
     tailscale_auth_key = var.tailscale_auth_key
     hostname           = "dev_portal"
     region             = var.region
-    nginx-repo-crt     = aws_secretsmanager_secret.nginx-repo-crt.arn
-    nginx-repo-key     = aws_secretsmanager_secret.nginx-repo-key.arn
+    nginx-repo-crt     = format("%s-nginx-repo-crt-%s", lower(var.owner_name), random_id.id.hex)
+    nginx-repo-key     = format("%s-nginx-repo-key-%s", lower(var.owner_name), random_id.id.hex)
   })
 
   tags = {
