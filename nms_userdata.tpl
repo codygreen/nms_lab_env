@@ -38,7 +38,7 @@ runcmd:
   - systemctl enable nms-integrations
   - systemctl start nms
   - systemctl restart nginx
-  - apt-get install -y nms-api-connectivity-manager
+  - apt-get install -y nms-api-connectivity-manager nms-sm
   - systemctl enable nms-acm
   - systemctl restart nginx
   - hostnamectl set-hostname ${hostname}
