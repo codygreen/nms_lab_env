@@ -1,7 +1,3 @@
-resource "random_id" "id" {
-  byte_length = 2
-}
-
 resource "aws_secretsmanager_secret" "nginx-repo-crt" {
   name = format("%s-nginx-repo-crt-%s", lower(var.owner_name), random_id.id.hex)
 }
