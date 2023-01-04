@@ -1,6 +1,6 @@
 # NGINX Management Suite Lab
 
-This repository will build out a 3 server deployment in AWS allowing the user to test the NGINX Management Suite, API Connectivity Manager, Developer Portal, and API Gateway instances.
+This repository will build out a 4 server deployment in AWS allowing the user to test the NGINX Management Suite, API Connectivity Manager, Developer Portal, and API Gateway instances. Additionally, the NMS Security Monitor module is installed on the nms instance. An instance with NGINX App Protect WAF is also provided, however you need to configure it according to the [documentation](https://docs.nginx.com/nginx-management-suite/admin-guides/installation/install-guide/#configure-data-plane-for-security-monitoring) to enable Security Monitoring of this instance.
 
 > Note: This deployment leverages [Tailscale](https://tailscale.com/) to connect into the EC2 instances.
 
@@ -73,3 +73,7 @@ Once the dev_portal server is up and running, you will need to [configure Postgr
     ```bash
     sudo systemctl start nginx-devportal
     ```
+
+## Configure NMS Security Monitoring
+
+See the [official documentation](https://docs.nginx.com/nginx-management-suite/admin-guides/installation/install-guide/#configure-data-plane-for-security-monitoring) to install and configure the data plane NGINX instance and agent to support monitoring.
