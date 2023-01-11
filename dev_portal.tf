@@ -3,6 +3,7 @@ resource "aws_instance" "dev_portal" {
   instance_type               = var.instance_type
   vpc_security_group_ids      = [aws_security_group.egress.id]
   subnet_id                   = aws_subnet.private.id
+  private_ip                  = var.dev_portal_private_ip
   associate_public_ip_address = false
   key_name                    = var.key_name
   iam_instance_profile        = aws_iam_instance_profile.nms_profile.name

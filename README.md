@@ -8,72 +8,24 @@ This repository will build out a 4 server deployment in AWS allowing the user to
 
 ## Deployment
 
-> Note: You will need to save your *nginx-repo.crt* and *nginx-repo.key* in the base folder of this project.
+> Note: You will need to save your *nginx-repo.crt* and *nginx-repo.key* in the base folder of this project. Also, you will need to base64 encode your NMS license file and save it to *nms-license-b64.txt* in the base folder of this project.
+
+Create a `terraform.tfvars` file in the base folder of this project with this content updated as appropriate:
+
+```
+region = "<your aws region name>"
+owner_name = "<your owner name>"
+owner_email = "<your owner email address>"
+key_name = "<your existing AWS ssh key name>"
+tailscale_auth_key = "<your tailscale auth key>"
+nms_admin_password = "<your password for the NMS admin account>"
+```
 
 Run the following Terraform commands to deploy the environment:
 
 ```bash
 terraform init
-terraform apply -auto-approve
+terraform apply --auto-approve
 ```
 
-## Configure NMS
-
-Once the NMS server is up and running, you will need to reset the NMS admin password:
-
-```bash
-sudo htpasswd -c /etc/nms/nginx/.htpasswd admin
-```
-
-Next, you will need to login to the NMS UI and [add a license](https://docs.nginx.com/nginx-management-suite/admin-guides/getting-started/add-license/).
-
-## Configure Developer Portal
-
-Once the dev_portal server is up and running, you will need to [configure Postgres](https://docs.nginx.com/nginx-management-suite/admin-guides/installation/install-guide/#install-the-developer-portal):
-
-1. Configure PostgreSQL host-based authentication file:
-
-    ```bash
-    cat << EOF | sudo tee /etc/postgresql/12/main/pg_hba.conf
-
-    # TYPE DATABASE USER ADDRESS METHOD
-
-    local all postgres peer
-    local all all md5
-    # IPv4 local connections:
-    host all all 127.0.0.1/32 md5
-    # IPv6 local connections:
-    host all all ::1/128 md5
-    EOF
-    ```
-
-1. Restart PostgreSQL:
-
-    ```bash
-    sudo systemctl restart postgresql
-    ```
-
-1. Run the following commands:
-
-    ```bash
-    sudo -u postgres createdb devportal
-    sudo -u postgres psql -c "CREATE USER nginxdm WITH LOGIN PASSWORD 'nginxdm';"
-    sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE devportal TO nginxdm;"
-    ```
-
-1. Add NJS directives in the top-level main context the nginx.conf file located at `/etc/nginx/nginx.conf`:
-
-    ```bash
-    load_module modules/ngx_http_js_module.so;
-    load_module modules/ngx_stream_js_module.so;
-    ```
-
-1. Start the Dev Portal:
-
-    ```bash
-    sudo systemctl start nginx-devportal
-    ```
-
-## Configure NMS Security Monitoring
-
-See the [official documentation](https://docs.nginx.com/nginx-management-suite/admin-guides/installation/install-guide/#configure-data-plane-for-security-monitoring) to install and configure the data plane NGINX instance and agent to support monitoring.
+Once deployment is complete, you can browse to `https://<nms server tailscale public ip>`.

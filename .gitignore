@@ -30,3 +30,4 @@ override.tf.json
 terraform.tfvars
 nginx-repo.crt
 nginx-repo.key
+nms-license-b64.txt

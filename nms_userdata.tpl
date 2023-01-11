@@ -17,6 +17,7 @@ runcmd:
   - mkdir /etc/ssl/nginx
   - aws secretsmanager get-secret-value --secret-id ${nginx-repo-crt} --region ${region} --query 'SecretString' --output text > /etc/ssl/nginx/nginx-repo.crt
   - aws secretsmanager get-secret-value --secret-id ${nginx-repo-key} --region ${region} --query 'SecretString' --output text > /etc/ssl/nginx/nginx-repo.key
+  - aws secretsmanager get-secret-value --secret-id ${nms-license} --region ${region} --query 'SecretString' --output text > ${nms-license-file}
   - apt-get install -y apt-transport-https lsb-release ca-certificates wget gnupg2 ubuntu-keyring dirmngr
   - wget -qO - https://cs.nginx.com/static/keys/nginx_signing.key | gpg --dearmor | sudo tee /usr/share/keyrings/nginx-archive-keyring.gpg >/dev/null
   - wget -qO - https://cs.nginx.com/static/keys/app-protect-security-updates.key | gpg --dearmor | sudo tee /usr/share/keyrings/app-protect-security-updates.gpg >/dev/null
@@ -37,8 +38,19 @@ runcmd:
   - systemctl enable nms-ingestion
   - systemctl enable nms-integrations
   - systemctl start nms
+  - systemctl start nms-core
+  - systemctl start nms-dpmnms-
+  - systemctl start nms-ingestion
+  - systemctl start nms-integrations
   - systemctl restart nginx
   - apt-get install -y nms-api-connectivity-manager nms-sm
   - systemctl enable nms-acm
+  - systemctl restart nms
+  - systemctl restart nms-core
+  - systemctl restart nms-dpm
+  - systemctl restart nms-ingestion
+  - systemctl restart nms-integrations
   - systemctl restart nginx
   - hostnamectl set-hostname ${hostname}
+  - htpasswd -b -c /etc/nms/nginx/.htpasswd ${nms-admin-username} ${nms-admin-password}
+  - 'curl -k --location --request PUT "https://${nms-host}/api/platform/v1/license" --header "Authorization: Basic `printf "%s:%s" "${nms-admin-username}" "${nms-admin-password}" | base64`" --header "Content-Type: application/json" --data-raw "{ \"desiredState\": { \"content\": \"`cat ${nms-license-file}`\" }, \"metadata\": { \"name\": \"license\" } }"'
