@@ -54,3 +54,4 @@ runcmd:
   - hostnamectl set-hostname ${hostname}
   - htpasswd -b -c /etc/nms/nginx/.htpasswd ${nms-admin-username} ${nms-admin-password}
   - 'curl -k --location --request PUT "https://${nms-host}/api/platform/v1/license" --header "Authorization: Basic `printf "%s:%s" "${nms-admin-username}" "${nms-admin-password}" | base64`" --header "Content-Type: application/json" --data-raw "{ \"desiredState\": { \"content\": \"`cat ${nms-license-file}`\" }, \"metadata\": { \"name\": \"license\" } }"'
+  - rm ${nms-license-file}
