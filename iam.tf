@@ -35,6 +35,7 @@ data "aws_iam_policy_document" "nms_policy" {
     resources = [
       aws_secretsmanager_secret.nginx-repo-crt.arn,
       aws_secretsmanager_secret.nginx-repo-key.arn,
+      aws_secretsmanager_secret.nms-license.arn,
     ]
   }
 }
